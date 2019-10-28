@@ -525,14 +525,10 @@
     nil)
    ((null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
     (null adt-constructor-decl "(null?)" list_adt nil)
-    (append def-decl "list[T]" list_props nil)
-    (x!2 skolem-const-decl "list[T]" mergesort nil)
+    (append def-decl "list[T]" list_props nil) nil
     (NOT const-decl "[bool -> bool]" booleans nil)
     (dichotomous? const-decl "bool" orders nil)
-    (TRUE const-decl "bool" booleans nil)
-    (k skolem-const-decl
-     "below[length(cons(car(x!2), merge(x!1, cdr(x!2))))]" mergesort
-     nil)
+    (TRUE const-decl "bool" booleans nil) nil
     (nnint_plus_posint_is_posint application-judgement "posint"
      integers nil)
     (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
@@ -545,7 +541,7 @@
      real_props nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (x!1 skolem-const-decl "list[T]" mergesort nil)
+    nil
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (nth def-decl "T" list_props nil)
@@ -1172,7 +1168,26 @@
    shostak))
  (merge_sort_is_permutation 0
   (merge_sort_is_permutation-1 nil 3589041194
-   ("" (induct "l") (("1" (postpone) nil nil) ("2" (postpone) nil nil))
+   ("" (induct "l")
+    (("1" (grind) nil nil)
+     ("2" (skeep)
+      (("2" (expand merge_sort)
+        (("2" (lift-if)
+          (("2" (prop)
+            (("1" (hide -1 -2 -3)
+              (("1" (expand permutations) (("1" (propax) nil nil))
+                nil))
+              nil)
+             ("2" (postpone) nil nil)
+             ("3" (hide -1 -2 2)
+              (("3" (expand permutations) (("3" (propax) nil nil))
+                nil))
+              nil)
+             ("4" (postpone) nil nil))
+            nil))
+          nil))
+        nil))
+      nil))
     nil)
    ((nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
